@@ -47,8 +47,8 @@ A API possui os seguintes endpoints:
 - **Carros:**
   - `POST /cars`: Criar um novo carro.
   - `GET /cars`: Listar todos os carros.
-  - `GET /cars//:filter?/:filterB?`: Obter detalhes de um carro utilizando cor e marca.
-  - `GET /cars//:filter?/`: Obter detalhes de um carro utilizando cor, marca ou placa.
+  - `GET /cars/:filter?/:filterB?`: Obter detalhes de um carro utilizando cor e marca.
+  - `GET /cars/:filter?/`: Obter detalhes de um carro utilizando cor, marca ou placa.
   - `PATCH /cars/update/:id`: Atualizar informações de um carro.
   - `PATCH /cars/recovery/:licenseplate`: Recuperar um carro deletado pela placa.
   - `DELETE /cars/:id`: Deletar um carro.
