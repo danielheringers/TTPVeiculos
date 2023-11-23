@@ -45,17 +45,20 @@ Certifique-se de ter o Node.js e o PostgreSQL instalados em seu sistema.
 A API possui os seguintes endpoints:
 
 - **Carros:**
-  - `GET /cars`: Listar todos os carros.
   - `POST /cars`: Criar um novo carro.
-  - `GET /cars/:licenseplate`: Obter detalhes de um carro específico.
-  - `PUT /cars/:licenseplate`: Atualizar informações de um carro.
-  - `DELETE /cars/:licenseplate`: Deletar um carro.
+  - `GET /cars`: Listar todos os carros.
+  - `GET /cars//:filter?/:filterB?`: Obter detalhes de um carro utilizando cor e marca.
+  - `GET /cars//:filter?/`: Obter detalhes de um carro utilizando cor, marca ou placa.
+  - `PATCH /cars/update/:id`: Atualizar informações de um carro.
+  - `PATCH /cars/recovery/:licenseplate`: Recuperar um carro deletado pela placa.
+  - `DELETE /cars/:id`: Deletar um carro.
 
 - **Motoristas:**
-  - `GET /drivers`: Listar todos os motoristas.
   - `POST /drivers`: Criar um novo motorista.
+  - `GET /drivers`: Listar todos os motoristas.
   - `GET /drivers/:cnh`: Obter detalhes de um motorista específico.
-  - `PUT /drivers/:cnh`: Atualizar informações de um motorista.
+  - `PATCH /drivers/update/:cnh`: Atualizar informações de um motorista.
+  - `PATCH /recovery/:cnh`: Recuperar informações de um motorista deletado.
   - `DELETE /drivers/:cnh`: Deletar um motorista.
 
 - **Utilização de Carros:**
