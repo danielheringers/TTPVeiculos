@@ -36,7 +36,7 @@ export const listCarsService = async (filter, filterB) => {
             }
         };
 
-        // Verifica se há dois filtros, retornando o carro correspondente
+        
         if (filter && filterB) {
             const queryResponse = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE color = $1 AND brand = $2;", [filter, filterB]);
             return queryResponse.rows[0];
