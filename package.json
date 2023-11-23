@@ -8,7 +8,6 @@
     "test": "jest",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "clear_db": "psql -U postgres -d automoveisAPI -c \"DELETE FROM cars; DELETE FROM drivers;\" \"exit\""
   },
   "keywords": [],
   "author": "",
