@@ -22,7 +22,7 @@ export const listCarController = async (req, res) => {
 };
 
 export const recoveryCarController = async (req, res) => {
-    const data = await recoveryCarService(req.params.id);
+    const data = await recoveryCarService(req.params.licenseplate);
     return res.status(200).json(data);
 }
 

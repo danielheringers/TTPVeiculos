@@ -4,7 +4,7 @@ import { createCarController, deleteCarController, listCarController, recoveryCa
 
 export const carRouter = express.Router();
 
-carRouter.patch('/recovery/:id', recoveryCarController);
+carRouter.patch('/recovery/:licenseplate', recoveryCarController);
 carRouter.patch('/update/:id', updateCarController)
 carRouter.get('/:filter', listCarController);
 carRouter.get('/:filter?/:filterB?', listCarController);

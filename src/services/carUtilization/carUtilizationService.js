@@ -16,7 +16,6 @@ export const startCarUtilizationService = async (data) => {
         'INSERT INTO carutilization (driverid, carid, reasonforuse, initialdate) VALUES ($1, $2, $3, current_timestamp) RETURNING *;',
         [driverId, carId, reasonForUse]
     );
-    console.log("Chegou Aqui 2!")
     return queryResponse.rows[0];
 };
 

@@ -4,7 +4,6 @@ import { startDatabase, closeDatabase } from "./database/database.js";
 
 export const server = app.listen(3000, async () => {
   await startDatabase();
-  console.log('Server started');
 });
 
 export const closeServerAndDatabase = async () => {
@@ -15,7 +14,6 @@ export const closeServerAndDatabase = async () => {
       if (err) {
         console.error('Error closing server:', err);
       } else {
-        console.log('Server closed');
       }
       resolve();
     });

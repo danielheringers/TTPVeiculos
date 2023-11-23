@@ -42,7 +42,6 @@ export const listCarsService = async (filter, filterB) => {
             return queryResponse.rows[0];
         };
     } catch (error) {
-        // Em caso de erro, lança a exceção NotFoundError
         throw new NotFoundError(error.message);
     }
 };
