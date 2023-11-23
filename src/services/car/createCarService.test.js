@@ -17,12 +17,12 @@ describe('createCarService', () => {
       brand: 'Toyota',
     };
 
-    // Configuração do mock para simular uma resposta do banco de dados
+    Configuração do mock para simular uma resposta do banco de dados
     database.query.mockResolvedValueOnce({
       rows: [{ id: 1, licenseplate: 'ABC123', color: 'Red', brand: 'Toyota' }],
     });
 
-    // Configuração do mock para simular a validação do serializer
+    Configuração do mock para simular a validação do serializer
     jest.spyOn(carReturnSerializer, 'validate').mockResolvedValueOnce(mockData);
 
     const result = await createCarService(mockData);
@@ -37,7 +37,7 @@ describe('createCarService', () => {
       brand: 'Toyota',
     };
 
-    // Configuração do mock para simular uma exceção de chave duplicada no banco de dados
+    Configuração do mock para simular uma exceção de chave duplicada no banco de dados
     database.query.mockRejectedValueOnce({
       code: '23505',
       constraint: 'cars_licenseplate_key',
@@ -53,7 +53,7 @@ describe('createCarService', () => {
       brand: 'Toyota',
     };
 
-    // Configuração do mock para simular um erro desconhecido no banco de dados
+    Configuração do mock para simular um erro desconhecido no banco de dados
     database.query.mockRejectedValueOnce(new Error('Erro desconhecido'));
 
     await expect(createCarService(mockData)).rejects.toThrowError('Erro desconhecido');
