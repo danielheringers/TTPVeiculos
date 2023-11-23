@@ -25,6 +25,10 @@ Certifique-se de ter o Node.js e o PostgreSQL instalados em seu sistema.
   ```bash
   npm test
   ```
+- **Insomnia file:**
+  ```bash
+  https://drive.google.com/file/d/1m6vGhV42XOUiAQO_xWfdbvS09Xg7vzRa/view?usp=sharing
+  ```
 
 - **Iniciar Servidor:**
   ```bash
