@@ -1,5 +1,6 @@
 import { recoveryCarService } from '../car/recoveryCarService.js';
 import { database } from '../../database/database.js';
+import { NotFoundError } from '../../error/appError.js';
 
 jest.mock('../../database/database');
 
@@ -15,7 +16,7 @@ describe('recoveryCarService', () => {
     // Configuração do mock para simular uma resposta do banco de dados
     database.query
       .mockResolvedValueOnce({ rows: [mockDeletedCar] }) // Simular um carro deletado
-      .mockResolvedValueOnce(/* Simular uma resposta do banco de dados aqui */); // Simular a atualização
+      .mockResolvedValueOnce({}); // Simular uma resposta vazia do banco de dados para a atualização
 
     const result = await recoveryCarService(mockLicenseplate);
 
@@ -32,16 +33,19 @@ describe('recoveryCarService', () => {
 
     // Verifique se a função de consulta foi chamada duas vezes
     expect(database.query).toHaveBeenCalledTimes(2);
+
+    // Verifique se o resultado da função é o esperado
+    expect(result).toEqual(mockDeletedCar);
   });
 
   it('deve lançar NotFoundError se nenhum veículo deletado for encontrado', async () => {
     const mockLicenseplate = 'ABC123';
 
     // Configuração do mock para simular uma resposta vazia do banco de dados
-    database.query.mockResolvedValueOnce([]);
+    database.query.mockResolvedValueOnce({ rows: [] });
 
     // Modifique para tratar o erro de maneira mais flexível
-    await expect(recoveryCarService(mockLicenseplate)).rejects.toThrowError(/Nenhum veículo encontrado/);
+    await expect(recoveryCarService(mockLicenseplate)).rejects.toThrowError(NotFoundError);
   });
 
   it('deve lançar erro se ocorrer algum erro durante a recuperação do carro', async () => {
