@@ -41,7 +41,6 @@ export const listCarController = async (req, res) => {
 
 export const recoveryCarController = async (req, res) => {
     try {
-        console.log("Controller: ", req.params.licenseplate)
         const data = await recoveryCarService(req.params.licenseplate);
         return res.status(200).json(data);
     } catch (error) {

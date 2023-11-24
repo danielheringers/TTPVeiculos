@@ -30,6 +30,12 @@ export class DriverCreateError extends AppError {
   }
 };
 
+export class DriverAlreadyUsingError extends Error {
+  constructor(message = "The driver is already using another car") {
+    super(message, 400);
+  }
+};
+
 export const handleAppError = (error, request, response, next) => {
     if (error instanceof AppError) {
       return response.status(error.statusCode).json(error.message);

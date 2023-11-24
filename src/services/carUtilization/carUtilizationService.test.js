@@ -1,5 +1,6 @@
 import { startCarUtilizationService, endCarUtilizationService } from '../carUtilization/carUtilizationService.js';
 import { database } from '../../database/database.js';
+import { DriverAlreadyUsingError } from '../../error/appError.js';
 
 jest.mock('../../database/database');
 
@@ -27,12 +28,19 @@ describe('startCarUtilizationService', () => {
   });
 
   it('should throw an error if the driver is already using another car', async () => {
-    const data = { driverId: 1, carId: 2, reasonForUse: 'Trabalho' };
-
-    const mockExistingUtilization = { rows: [] };
+    const mockExistingUtilization = {
+      rows: [{
+        id: 1,
+        driverid: 1,
+        carid: 1,
+        reasonforuse: 'Trabalho',
+        initialdate: new Date(),
+      }],
+    };
     database.query.mockResolvedValueOnce(mockExistingUtilization);
-
-    await expect(startCarUtilizationService(data)).rejects.toThrowError('The driver is already using another car.');
+    const data = { driverId: 1, carId: 2, reasonForUse: 'Trabalho' };
+    await expect(startCarUtilizationService(data)).rejects.toThrowError("The driver is already using another car");
+    
   });
 });
 
@@ -66,6 +74,6 @@ describe('endCarUtilizationService', () => {
     const mockNoUtilization = { rows: [] };
     database.query.mockResolvedValueOnce(mockNoUtilization);
 
-    await expect(endCarUtilizationService(driverId)).rejects.toThrowError('The driver is not using any car at the moment.');
+    await expect(endCarUtilizationService(driverId)).rejects.toThrowError('The driver is not using any car at the moment');
   });
 });

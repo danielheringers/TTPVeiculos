@@ -7,6 +7,7 @@ export const recoveryCarService = async (data) => {
         "SELECT id, licenseplate, color, brand FROM cars WHERE licenseplate = $1 AND deleted = true;",
         [data.toLowerCase()]
     );
+    
     if (deletedCar.rows.length === 0) {
         throw new NotFoundError('No vehicles found');
     }

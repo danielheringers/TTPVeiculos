@@ -37,6 +37,6 @@ describe('updateCarService', () => {
     const licenseplate = 'abc123';
     const data = {};
 
-    await expect(updateCarService(licenseplate, data)).rejects.toThrowError('No fields provided for update.');
+    await expect(updateCarService(licenseplate, data)).rejects.toThrowError('No fields provided for update');
   });
 });

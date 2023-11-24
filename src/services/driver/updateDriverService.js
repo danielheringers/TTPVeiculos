@@ -8,12 +8,13 @@ export const updateDriverService = async (cnh, data) => {
   if (keys.length === 0) {
     throw new Error("No fields provided for update");
   }
+  const lowerCaseValues = values.map(value => (typeof value === 'string' ? value.toLowerCase() : value));
 
   const setClause = keys.map((key, index) => `${key} = $${index + 1}`).join(", ");
 
   const query = `UPDATE drivers SET ${setClause} WHERE cnh = $${keys.length + 1} RETURNING id, name, cnh`;
 
-  const queryResponse = await database.query(query, [...values, cnh]);
+  const queryResponse = await database.query(query, [...lowerCaseValues, cnh.toLowerCase()]);
 
   const returnedDriver = await driverReturnSerializer.validate(queryResponse.rows[0]);
   
