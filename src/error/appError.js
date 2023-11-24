@@ -30,7 +30,7 @@ export class DriverCreateError extends AppError {
   }
 };
 
-export class DriverAlreadyUsingError extends Error {
+export class DriverAlreadyUsingError extends AppError {
   constructor(message = "The driver is already using another car") {
     super(message, 400);
   }

@@ -3,25 +3,19 @@ import { DriverAlreadyUsingError } from "../../error/appError.js"
 //Criando Utilização
 export const startCarUtilizationService = async (data) => {
     const { driverId, carId, reasonForUse } = data;
-
-    try {
-        const existingUtilization = await database.query(
-            'SELECT * FROM carutilization WHERE driverid = $1 AND enddate IS NULL;',
-            [driverId]
-        );
-
-        if(existingUtilization.rows.length >= 1) {
-        }
-
+    const existingUtilization = await database.query(
+        'SELECT * FROM carutilization WHERE driverid = $1 AND enddate IS NULL;',
+        [driverId]
+    );
+    if(existingUtilization.rows.length === 0) {
         const queryResponse = await database.query(
             'INSERT INTO carutilization (driverid, carid, reasonforuse, initialdate) VALUES ($1, $2, $3, current_timestamp) RETURNING *;',
             [driverId, carId, reasonForUse]
         );
 
-        return queryResponse.rows[0];
-    } catch (error) {
-        throw new DriverAlreadyUsingError("The driver is already using another car");
+        return queryResponse.rows[0];  
     }
+    throw new Error("The driver is already using another car");
 };
 
 

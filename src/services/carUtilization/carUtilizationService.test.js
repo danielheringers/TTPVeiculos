@@ -9,7 +9,7 @@ describe('startCarUtilizationService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve iniciar a utilização de um carro por um motorista', async () => {
+  it('must initiate the use of a car by a driver', async () => {
     const data = { driverId: 1, carId: 2, reasonForUse: 'Trabalho' };
 
     const mockQueryResponse = {
@@ -38,9 +38,19 @@ describe('startCarUtilizationService', () => {
       }],
     };
     database.query.mockResolvedValueOnce(mockExistingUtilization);
+
+
     const data = { driverId: 1, carId: 2, reasonForUse: 'Trabalho' };
-    await expect(startCarUtilizationService(data)).rejects.toThrowError("The driver is already using another car");
-    
+    let error;
+
+    try {
+      await startCarUtilizationService(data);
+    } catch (err) {
+      error = err;
+    }
+
+    expect(error).toBeInstanceOf(Error);
+    await expect(error.message).toBe("The driver is already using another car");
   });
 });
 
