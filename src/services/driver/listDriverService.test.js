@@ -9,11 +9,11 @@ describe('listDriverService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve listar todos os motoristas', async () => {
+  it('must list all drivers', async () => {
     const mockQueryResponse = {
       rows: [
-        { id: 1, name: 'John Doe', cnh: 'ABC123' },
-        { id: 2, name: 'Jane Doe', cnh: 'DEF456' },
+        { id: 1, name: 'john doe', cnh: 'abc123' },
+        { id: 2, name: 'jane doe', cnh: 'def456' },
       ],
     };
 
@@ -27,11 +27,11 @@ describe('listDriverService', () => {
     expect(result).toEqual(mockQueryResponse.rows);
   });
 
-  it('deve listar um motorista específico', async () => {
-    const filter = 'John Doe';
+  it('must list a specific driver', async () => {
+    const filter = 'john doe';
 
     const mockQueryResponseDriver = {
-      rows: [{ id: 1, name: 'John Doe', cnh: 'ABC123' }],
+      rows: [{ id: 1, name: 'john doe', cnh: 'abc123' }],
     };
 
     database.query.mockResolvedValueOnce(mockQueryResponseDriver);
@@ -45,7 +45,7 @@ describe('listDriverService', () => {
     expect(result).toEqual(mockQueryResponseDriver.rows[0]);
   });
 
-  it('deve lançar um erro se nenhum motorista for encontrado', async () => {
+  it('should throw an error if no driver is found', async () => {
     const mockNoDriver = { rows: [] };
     database.query.mockResolvedValueOnce(mockNoDriver);
 

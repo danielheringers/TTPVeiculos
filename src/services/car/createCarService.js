@@ -6,7 +6,7 @@ export const createCarService = async (data) => {
     try{
         const queryResponse = await database.query(
             'INSERT INTO cars (licenseplate, color, brand) VALUES ($1, $2, $3) RETURNING id, licenseplate, color, brand;',
-            [data.licenseplate, data.color, data.brand]
+            [data.licenseplate.toLowerCase(), data.color.toLowerCase(), data.brand.toLowerCase()]
         );
         const returnedCar = await carReturnSerializer.validate(queryResponse.rows[0]);
     
@@ -20,4 +20,3 @@ export const createCarService = async (data) => {
         throw error;
     }
 };
-

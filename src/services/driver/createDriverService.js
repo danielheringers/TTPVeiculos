@@ -13,7 +13,7 @@ export const createDriverService = async (data) => {
     }
     catch (error) {
         if (error.code === "23505" && error.constraint === "drivers_cnh_key") {
-          throw new DriverCreateError("Motorista já existe");
+          throw new DriverCreateError("Driver already exists");
         }
         throw error;
     }

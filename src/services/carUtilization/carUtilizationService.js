@@ -8,7 +8,7 @@ export const startCarUtilizationService = async (data) => {
     );
 
     if(existingUtilization.rows.length > 0) {
-        throw new Error('O motorista já está utilizando outro carro.');
+        throw new Error('The driver is already using another car');
     }
 
 
@@ -28,7 +28,7 @@ export const endCarUtilizationService = async (driverId) => {
     );
 
     if(queryResponse.rows.length === 0) {
-        throw new Error('O motorista não está utilizando nenhum carro no momento.');
+        throw new Error('The driver is not using any car at the moment.');
     }
 
     return queryResponse.rows[0];

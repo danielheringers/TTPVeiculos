@@ -8,8 +8,8 @@ describe('deleteDriverService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve excluir um motorista com sucesso', async () => {
-    const data = 'ABC123';
+  it('must delete a driver successfully', async () => {
+    const data = 'abc123';
 
     const mockQueryResponse = {
       rowCount: 1,
@@ -26,10 +26,10 @@ describe('deleteDriverService', () => {
     expect(result).toEqual(mockQueryResponse);
   });
 
-  it('deve lançar um erro se a exclusão falhar', async () => {
-    const data = 'ABC123';
+  it('should throw an error if the deletion fails', async () => {
+    const data = 'abc123';
 
-    const error = new Error('Erro durante a exclusão');
+    const error = new Error('Error during deletion');
     database.query.mockRejectedValueOnce(error);
 
     await expect(deleteDriverService(data)).rejects.toThrowError(error);

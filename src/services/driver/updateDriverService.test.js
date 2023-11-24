@@ -9,12 +9,12 @@ describe('updateDriverService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve atualizar um motorista com sucesso', async () => {
-    const mockCnh = 'ABC123';
-    const mockData = { name: 'John Doe', cnh: 'XYZ789' };
+  it('must update a driver successfully', async () => {
+    const mockCnh = 'abc123';
+    const mockData = { name: 'john doe', cnh: 'xyz789' };
 
     const mockQueryResponse = {
-      rows: [{ id: 1, name: 'John Doe', cnh: 'XYZ789' }],
+      rows: [{ id: 1, name: 'john doe', cnh: 'xyz789' }],
     };
 
     database.query.mockResolvedValueOnce(mockQueryResponse);
@@ -29,10 +29,10 @@ describe('updateDriverService', () => {
     expect(result).toEqual(expectedReturnedDriver);
   });
 
-  it('deve lançar um erro se nenhum campo for fornecido para atualização', async () => {
-    const mockCnh = 'ABC123';
+  it('should throw an error if no field is provided for update', async () => {
+    const mockCnh = 'abc123';
     const mockData = {};
 
-    await expect(updateDriverService(mockCnh, mockData)).rejects.toThrowError('Nenhum campo fornecido para atualização.');
+    await expect(updateDriverService(mockCnh, mockData)).rejects.toThrowError('No fields provided for update');
   });
 });

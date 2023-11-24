@@ -30,7 +30,7 @@ describe('createDriverService', () => {
   });
 
   it('deve lançar um erro se o motorista já existir', async () => {
-    const data = { name: 'John Doe', cnh: 'ABC123' };
+    const data = { name: 'john doe', cnh: 'abc123' };
 
     const uniqueViolationError = {
       code: '23505',
@@ -41,7 +41,7 @@ describe('createDriverService', () => {
     await expect(createDriverService(data)).rejects.toThrowError(DriverCreateError);
   });
 
-  it('deve lançar um erro desconhecido', async () => {
+  it('should throw an unknown error', async () => {
     const data = { name: 'John Doe', cnh: 'ABC123' };
 
     const unknownError = new Error('Erro desconhecido');

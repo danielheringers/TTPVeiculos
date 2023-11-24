@@ -10,14 +10,15 @@ export const listCarsService = async (filter, filterB) => {
             if (queryResponse.rows.length > 0) {
                 return queryResponse.rows;
             }
-            throw new NotFoundError("Nenhum veículo encontrado");
+            throw new NotFoundError("No vehicles found");
         };
 
        
         if (filter && !filterB) {
-            const queryResponseColor = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE color = $1 AND deleted = false;", [filter]);
-            const queryResponseBrand = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE brand = $1 AND deleted = false;", [filter]);
-            const queryResponseLicense = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE licenseplate = $1 AND deleted = false;", [filter]);
+            const lowerCaseFilter = filter.toLowerCase();
+            const queryResponseColor = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE color = $1 AND deleted = false;", [lowerCaseFilter]);
+            const queryResponseBrand = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE brand = $1 AND deleted = false;", [lowerCaseFilter]);
+            const queryResponseLicense = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE licenseplate = $1 AND deleted = false;", [lowerCaseFilter]);
 
             if (queryResponseColor.rows.length > 0) {
                 return queryResponseColor.rows[0];
@@ -32,14 +33,16 @@ export const listCarsService = async (filter, filterB) => {
             }
 
             else {
-                throw new NotFoundError("Nenhum veículo encontrado");
+                throw new NotFoundError("No vehicles found!");
             }
         };
 
         
         if (filter && filterB) {
-            const queryResponse = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE color = $1 AND brand = $2;", [filter, filterB]);
-            return queryResponse.rows[0];
+            const lowerCaseFilter = filter.toLowerCase();
+            const lowerCaseFilterB = filterB.toLowerCase();
+            const queryResponse = await database.query("SELECT id, licenseplate, color, brand FROM cars WHERE color = $1 AND brand = $2;", [lowerCaseFilter, lowerCaseFilterB]);
+            return queryResponse.rows;
         };
     } catch (error) {
         throw new NotFoundError(error.message);

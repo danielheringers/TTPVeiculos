@@ -1,5 +1,5 @@
 
-import { listCarsService } from '../car/listCarsService.js';
+import { listCarsService } from './listCarsService.js';
 import { database } from '../../database/database.js';
 import { NotFoundError } from '../../error/appError.js';
 
@@ -12,16 +12,16 @@ describe('listCarsService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve retornar todos os carros quando não há filtros', async () => {
+  it('should return all cars when there are no filters', async () => {
     
-    database.query.mockResolvedValueOnce({ rows: [{ id: 1, licenseplate: 'ABC123', color: 'Red', brand: 'Toyota' }] });
+    database.query.mockResolvedValueOnce({ rows: [{ id: 1, licenseplate: 'abc123', color: 'red', brand: 'toyota' }] });
 
     const result = await listCarsService();
 
-    expect(result).toEqual([{ id: 1, licenseplate: 'ABC123', color: 'Red', brand: 'Toyota' }]);
+    expect(result).toEqual([{ id: 1, licenseplate: 'abc123', color: 'red', brand: 'toyota' }]);
   });
 
-  it('deve lançar NotFoundError quando nenhum veículo é encontrado sem filtros', async () => {
+  it('should throw NotFoundError when no vehicle is found without filters', async () => {
     database.query.mockResolvedValueOnce({ rows: [] });
 
     await expect(listCarsService()).rejects.toThrow(NotFoundError);

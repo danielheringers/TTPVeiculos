@@ -1,4 +1,4 @@
-import { recoveryCarService } from '../car/recoveryCarService.js';
+import { recoveryCarService } from './recoveryCarService.js';
 import { database } from '../../database/database.js';
 import { NotFoundError } from '../../error/appError.js';
 
@@ -9,9 +9,9 @@ describe('recoveryCarService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve recuperar um carro marcado como deletado no banco de dados', async () => {
-    const mockLicenseplate = 'ABC123';
-    const mockDeletedCar = { id: 1, licenseplate: 'ABC123', color: 'Red', brand: 'Toyota' };
+  it('must recover a car marked as deleted in the database', async () => {
+    const mockLicenseplate = 'abc123';
+    const mockDeletedCar = { id: 1, licenseplate: 'abc123', color: 'red', brand: 'toyota' };
 
 
     database.query
@@ -37,8 +37,8 @@ describe('recoveryCarService', () => {
     expect(result).toEqual(mockDeletedCar);
   });
 
-  it('deve lançar NotFoundError se nenhum veículo deletado for encontrado', async () => {
-    const mockLicenseplate = 'ABC123';
+  it('should throw NotFoundError if no deleted vehicles are found', async () => {
+    const mockLicenseplate = 'abc123';
 
     database.query.mockResolvedValueOnce({ rows: [] });
 
@@ -46,12 +46,12 @@ describe('recoveryCarService', () => {
     await expect(recoveryCarService(mockLicenseplate)).rejects.toThrowError(NotFoundError);
   });
 
-  it('deve lançar erro se ocorrer algum erro durante a recuperação do carro', async () => {
-    const mockLicenseplate = 'ABC123';
+  it('should throw error if any error occurs during car recovery', async () => {
+    const mockLicenseplate = 'abc123';
 
    
-    database.query.mockRejectedValueOnce(new Error('Erro ao recuperar o carro'));
+    database.query.mockRejectedValueOnce(new Error('Error recovering the car'));
 
-    await expect(recoveryCarService(mockLicenseplate)).rejects.toThrowError(/Erro ao recuperar o carro/);
+    await expect(recoveryCarService(mockLicenseplate)).rejects.toThrowError(/Error recovering the car/);
   });
 });

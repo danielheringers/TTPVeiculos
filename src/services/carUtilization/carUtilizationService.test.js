@@ -26,13 +26,13 @@ describe('startCarUtilizationService', () => {
     expect(result).toEqual(mockQueryResponse.rows[0]);
   });
 
-  it('deve lançar um erro se o motorista já estiver utilizando outro carro', async () => {
+  it('should throw an error if the driver is already using another car', async () => {
     const data = { driverId: 1, carId: 2, reasonForUse: 'Trabalho' };
 
     const mockExistingUtilization = { rows: [] };
     database.query.mockResolvedValueOnce(mockExistingUtilization);
 
-    await expect(startCarUtilizationService(data)).rejects.toThrowError('O motorista já está utilizando outro carro.');
+    await expect(startCarUtilizationService(data)).rejects.toThrowError('The driver is already using another car.');
   });
 });
 
@@ -42,7 +42,7 @@ describe('endCarUtilizationService', () => {
     jest.clearAllMocks();
   });
 
-  it('deve finalizar a utilização de um carro por um motorista', async () => {
+  it('must terminate the use of a car by a driver', async () => {
     const driverId = 1;
 
     const mockQueryResponse = {
@@ -60,12 +60,12 @@ describe('endCarUtilizationService', () => {
     expect(result).toEqual(mockQueryResponse.rows[0]);
   });
 
-  it('deve lançar um erro se o motorista não estiver utilizando nenhum carro', async () => {
+  it('should throw an error if the driver is not using any car', async () => {
     const driverId = 1;
 
     const mockNoUtilization = { rows: [] };
     database.query.mockResolvedValueOnce(mockNoUtilization);
 
-    await expect(endCarUtilizationService(driverId)).rejects.toThrowError('O motorista não está utilizando nenhum carro no momento.');
+    await expect(endCarUtilizationService(driverId)).rejects.toThrowError('The driver is not using any car at the moment.');
   });
 });

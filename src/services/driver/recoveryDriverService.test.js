@@ -9,20 +9,20 @@ describe('recoveryDriverService', () => {
         jest.clearAllMocks();
     });
 
-    it('deve recuperar um motorista deletado', async () => {
-        const mockCnh = 'ABC123';
+    it('must recover a deleted driver', async () => {
+        const mockCnh = 'abc123';
 
         const mockDeletedDriver = {
-            rows: [{ id: 1, name: 'John Doe', cnh: 'ABC123', deleted: true }],
+            rows: [{ id: 1, name: 'john doe', cnh: 'abc123', deleted: true }],
         };
 
         const mockQueryResponse = {
-            rows: [{ id: 1, name: 'John Doe', cnh: 'ABC123', deleted: false }],
+            rows: [{ id: 1, name: 'john doe', cnh: 'abc123', deleted: false }],
         };
 
         database.query
             .mockResolvedValueOnce(mockDeletedDriver)
-            .mockResolvedValueOnce({}); 
+            .mockResolvedValueOnce({});
 
         const result = await recoveryDriverService(mockCnh);
 
@@ -37,7 +37,7 @@ describe('recoveryDriverService', () => {
         expect(result).toEqual(mockQueryResponse.rows);
     });
 
-    it('deve lançar NotFoundError se nenhum motorista deletado for encontrado', async () => {
+    it('should throw NotFoundError if no deleted drivers are found', async () => {
         const mockCnh = 'XYZ789';
 
         const mockNoDeletedDriver = { rows: [] };

@@ -10,6 +10,6 @@ export const listCarUtilizationService = async () => {
             return queryResponse.rows;
         }
     }catch(error){
-        throw new NotFoundError("Nenhuma utilização de carro encontrada");
+        throw new NotFoundError("No cars being used at the moment");
     }
 };

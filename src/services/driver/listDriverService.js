@@ -10,7 +10,7 @@ export const listDriverService = async (filter) => {
             if (queryResponse.rows.length > 0) {
                 return queryResponse.rows;
             }
-            throw new NotFoundError("Nenhum motorista encontrado");
+            throw new NotFoundError("No drivers found");
         }
         else{
             const queryResponseDriver = await database.query("SELECT id, name, cnh FROM drivers WHERE name = $1 AND deleted = false;", [filter]);

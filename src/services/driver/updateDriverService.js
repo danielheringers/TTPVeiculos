@@ -6,7 +6,7 @@ export const updateDriverService = async (cnh, data) => {
   const values = Object.values(data);
 
   if (keys.length === 0) {
-    throw new Error("Nenhum campo fornecido para atualização.");
+    throw new Error("No fields provided for update");
   }
 
   const setClause = keys.map((key, index) => `${key} = $${index + 1}`).join(", ");
@@ -16,5 +16,6 @@ export const updateDriverService = async (cnh, data) => {
   const queryResponse = await database.query(query, [...values, cnh]);
 
   const returnedDriver = await driverReturnSerializer.validate(queryResponse.rows[0]);
+  
   return returnedDriver;
 };
