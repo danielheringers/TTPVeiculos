@@ -7,25 +7,25 @@ export class AppError extends Error {
 };
   
 export class NotFoundError extends AppError {
-  constructor(message = "Não encontrado") {
+  constructor(message = "Not Found") {
     super(message, 404);
   }
 };
 
 export class CarCreateError extends AppError {
-  constructor(messsage = "Carro já cadastrado"){
+  constructor(messsage = "Car already exist"){
     super(messsage, 400);
   }
 };
 
 export class CarNotFoundError extends AppError{
-  constructor(message = "Carro não existe"){
+  constructor(message = "Car not found"){
     super(message, 404);
   }
 };
 
 export class DriverCreateError extends AppError {
-  constructor(message = "Motorista já cadastrado") {
+  constructor(message = "Motorista already exist") {
     super(message, 501);
   }
 };

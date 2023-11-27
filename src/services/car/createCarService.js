@@ -15,7 +15,7 @@ export const createCarService = async (data) => {
 
     catch (error) {
         if (error.code === "23505" && error.constraint === "cars_licenseplate_key") {
-          throw new CarCreateError("Carro já existe");
+          throw new CarCreateError("Carro already exist");
         }
         throw error;
     }
